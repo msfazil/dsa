@@ -41,7 +41,7 @@ public class LinkedList {
 	}
 
 	public void getLength() {
-		System.out.println("Lenght " + length);
+		System.out.println("Length " + length);
 	}
 
 	public void append(int value) {
@@ -57,4 +57,39 @@ public class LinkedList {
 
 	}
 
+	public String removeLast() {
+		if(head==null) return null;
+		
+		Node temp= head;
+		Node pre=temp;
+		while(temp.next!=null) {
+		   pre = temp;
+		   temp= temp.next;
+		}
+
+		tail=pre;
+		tail.next=null;
+		length--;
+		
+		if(length==0) {
+			head= null;
+			tail= null;
+		}
+		
+		return Integer.toString(temp.value);
+		
+	}
+	
+	public void prepend(int value) {
+		if(length==0) {
+			append(value);
+			return;
+		}
+		
+		Node newNode = new Node(value);
+		newNode.next=head;
+		head= newNode;
+		tail= newNode.next;
+		length++;
+	}
 }
