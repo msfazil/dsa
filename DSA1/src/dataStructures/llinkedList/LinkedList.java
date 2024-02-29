@@ -32,12 +32,12 @@ public class LinkedList {
 		}
 	}
 
-	public void getHead() {
-		System.out.println("Head " + head);
+	public Node getHead() {
+		return head;
 	}
 
-	public void getTail() {
-		System.out.println("Tail " + tail);
+	public Node getTail() {
+		return tail;
 	}
 
 	public void getLength() {
@@ -58,38 +58,85 @@ public class LinkedList {
 	}
 
 	public String removeLast() {
-		if(head==null) return null;
-		
-		Node temp= head;
-		Node pre=temp;
-		while(temp.next!=null) {
-		   pre = temp;
-		   temp= temp.next;
+		if (head == null)
+			return null;
+
+		Node temp = head;
+		Node pre = temp;
+		while (temp.next != null) {
+			pre = temp;
+			temp = temp.next;
 		}
 
-		tail=pre;
-		tail.next=null;
+		tail = pre;
+		tail.next = null;
 		length--;
-		
-		if(length==0) {
-			head= null;
-			tail= null;
+		if (length == 0) {
+			head = null;
+			tail = null;
 		}
-		
+
 		return Integer.toString(temp.value);
-		
+
 	}
-	
+
 	public void prepend(int value) {
-		if(length==0) {
+		if (length == 0) {
 			append(value);
 			return;
 		}
-		
+
 		Node newNode = new Node(value);
-		newNode.next=head;
-		head= newNode;
-		tail= newNode.next;
+		newNode.next = head;
+		head = newNode;
+		tail = newNode.next;
 		length++;
 	}
+
+	public Node removeFirst() {
+		if (length == 0)
+			return null;
+		Node temp = head;
+		head = head.next;
+		temp.next = null;
+		length--;
+
+		if (length == 0)
+			tail = null;
+
+		return temp;
+
+	}
+
+	public Node get(int index) {
+		if (index < 0 || index >= length)
+			return null;
+
+		if (index == length - 1)
+			return getTail();
+		if (index == 0)
+			return getHead();
+
+		Node temp = head;
+
+		for (int i = 0; i < index; i++) {
+			temp = temp.next;
+		}
+
+		return temp;
+
+	}
+
+	public boolean set(int index, int value) {
+		Node result = get(index);
+
+		if(result==null) return false;
+		
+		result.value= value;
+		
+		return true;
+		
+		
+	}
+
 }
